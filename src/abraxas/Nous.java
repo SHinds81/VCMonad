@@ -3,20 +3,22 @@ package abraxas;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
+import java.io.File;
+import java.io.IOException;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.WritableImage;
+
+import javax.imageio.ImageIO;
 
 public class Nous extends Application {
 	@Override
 	public void start(Stage stage) {
 
-		int aeon = 25;
+		int aeon = 60;
 		aeon = (aeon * aeon) + aeon;
 		int omega = aeon;
 		System.out.println("Aeon test: " + aeon);
@@ -49,25 +51,6 @@ public class Nous extends Application {
 			aeonOne[creator] = aeon;
 			System.out.println("At this stage (" + creator + ") aeon is at: " + aeonOne[creator]);
 		}
-
-		Text artist = new Text();
-		Text title = new Text();
-
-		artist.setText("V\nO\nI\nD\nC\nH\nR\nI\nS\nT");
-		artist.setFont(Font.font("impact", FontWeight.BOLD, FontPosture.REGULAR, aeonOne[2]));
-		artist.setTextAlignment(TextAlignment.CENTER);
-		artist.setX(aeonOne[2] - aeonOne[4]);
-		artist.setY(aeonOne[1] - aeonOne[2]);
-		artist.setLineSpacing(-aeonOne[3] + aeonOne[7]);
-		artist.setFill(Color.WHITE);
-
-		title.setText("M\nO\nN\nA\nD");
-		title.setFont(Font.font("impact", FontWeight.BOLD, FontPosture.REGULAR, aeonOne[2]));
-		title.setTextAlignment(TextAlignment.CENTER);
-		title.setX(omega - aeonOne[2] - aeonOne[4]);
-		title.setY(aeonOne[0] + aeonOne[3] + aeonOne[4]);
-		title.setLineSpacing(-aeonOne[3] + aeonOne[7]);
-		title.setFill(Color.BLACK);
 
 		int demiurgeArchon = 0;
 		archonDemiurge.setX(demiurgeArchon);
@@ -187,9 +170,19 @@ public class Nous extends Application {
 		ultimateMonad.setHeight(omega);
 		ultimateMonad.setFill(Color.WHITE);
 
+		
+		
+		
+		
+		
+
+	    
+	    
+	    
+		
 		Group root = new Group(archonDemiurge, archonMonad, godDemiurge, godMonad, demonDemiurge, demonMonad,
 				alphaDemiurge, alphaMonad, betaDemiurge, betaMonad, rhoDemiurge, rhoMonad, sigmaDemiurge, sigmaMonad,
-				xiDemiurge, xiMonad, ultimateDemiurge, ultimateMonad, artist, title);
+				xiDemiurge, xiMonad, ultimateDemiurge, ultimateMonad);
 
 		Scene scene = new Scene(root, omega, omega);
 
@@ -198,7 +191,26 @@ public class Nous extends Application {
 		stage.setScene(scene);
 
 		stage.show();
+	
+		WritableImage image = root.snapshot(new SnapshotParameters(), null);
+	    
+	    // TODO: probably use a file chooser here
+	    File file = new File("Monad.png");
+	    
+	    try {
+	        ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+	    } catch (IOException e) {
+	        // TODO: handle exception here
+	    }
 	}
+	
+	
+	
+	
+	
+	
+	
+
 
 	public static void main(String args[]) {
 		launch(args);
